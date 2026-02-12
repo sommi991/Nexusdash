@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { NexusShell } from './components/layout/NexusShell'
 import { useNexusStore } from './store/nexusStore'
-import { NexusProvider } from './context/NexusContext'
+import { NexusProvider } from './context/NexusContext.jsx'
 
 // Module Imports - ALL IN ONE PAGE
 import DashboardModule from './modules/DashboardModule'
