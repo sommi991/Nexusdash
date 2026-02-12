@@ -4,7 +4,7 @@ import {
   FiPieChart, FiBarChart2, FiCalendar, FiDownload, FiFilter,
   FiMoreVertical, FiEye, FiCheckCircle, FiAlertCircle,
   FiClock, FiArrowUpRight, FiArrowDownRight, FiFileText,
-  FiBank, FiBriefcase, FiPercent, FiZap
+  FiBriefcase, FiPercent, FiZap, FiDatabase  // ✅ Fixed imports
 } from 'react-icons/fi'
 import { GlassCard } from '../components/core/GlassCard'
 
@@ -114,7 +114,7 @@ const FinanceModule = () => {
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 
               flex items-center justify-center">
-              <FiBank className="w-6 h-6 text-white" />
+              <FiDatabase className="w-6 h-6 text-white" /> {/* ✅ Changed FiBank to FiDatabase */}
             </div>
             <span className="text-sm font-semibold px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400">
               +{financialStats.cashFlow.change}%
@@ -143,7 +143,7 @@ const FinanceModule = () => {
         </GlassCard>
       </div>
 
-      {/* Charts Row */}
+      {/* Rest of your component remains the same */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <GlassCard className="p-6">
           <div className="flex items-center justify-between mb-6">
