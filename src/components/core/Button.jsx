@@ -12,10 +12,11 @@ export const Button = ({
   fullWidth = false,
   className = '',
   onClick,
+  type = 'button',
   ...props
 }) => {
   const variants = {
-    primary: 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:opacity-90 shadow-lg shadow-indigo-500/25',
+    primary: 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:opacity-90',
     secondary: 'bg-white/[0.02] border border-white/[0.03] text-white/70 hover:bg-white/[0.03] hover:text-white/90',
     success: 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:opacity-90',
     danger: 'bg-gradient-to-r from-rose-500 to-red-500 text-white hover:opacity-90',
@@ -31,34 +32,27 @@ export const Button = ({
     xl: 'h-16 px-10 text-lg',
   }
 
-  const baseClasses = 'relative inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-300 overflow-hidden group'
+  const baseClasses = 'relative inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 cursor-pointer'
   const widthClasses = fullWidth ? 'w-full' : ''
-  const stateClasses = (disabled || loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+  const stateClasses = (disabled || loading) ? 'opacity-50 cursor-not-allowed' : ''
 
   return (
     <button
+      type={type}
       className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${widthClasses} ${stateClasses} ${className}`}
       disabled={disabled || loading}
       onClick={onClick}
       {...props}
     >
-      {/* Ripple Effect */}
-      <span className="absolute inset-0 overflow-hidden rounded-xl">
-        <span className="absolute inset-0 transition-all duration-500 opacity-0 group-hover:opacity-100 
-          bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full" />
-      </span>
-
-      {/* Loading State */}
       {loading && (
         <FiLoader className="w-4 h-4 animate-spin" />
       )}
-
-      {/* Icon & Content */}
+      
       {!loading && Icon && iconPosition === 'left' && (
         <Icon className={`w-4 h-4 ${size === 'sm' ? 'w-3.5 h-3.5' : size === 'lg' ? 'w-5 h-5' : ''}`} />
       )}
       
-      <span className="relative">{children}</span>
+      <span>{children}</span>
       
       {!loading && Icon && iconPosition === 'right' && (
         <Icon className={`w-4 h-4 ${size === 'sm' ? 'w-3.5 h-3.5' : size === 'lg' ? 'w-5 h-5' : ''}`} />
