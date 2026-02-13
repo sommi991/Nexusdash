@@ -9,14 +9,17 @@ export const StatCard = ({
   trend = 'up',
   icon: Icon,
   gradient = 'from-indigo-500 to-purple-500',
+  onClick,
   className = ''
 }) => {
   return (
-    <GlassCard className={`p-6 group hover:scale-[1.02] transition-all duration-500 ${className}`}>
+    <GlassCard 
+      className={`p-6 group hover:scale-[1.02] transition-all duration-300 cursor-pointer ${className}`}
+      onClick={onClick}
+    >
       <div className="flex items-center justify-between mb-4">
         <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} 
-          flex items-center justify-center shadow-lg shadow-indigo-500/10
-          group-hover:scale-110 transition-transform duration-500`}>
+          flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
           <Icon className="w-6 h-6 text-white" />
         </div>
         
@@ -44,10 +47,6 @@ export const StatCard = ({
           {title}
         </p>
       </div>
-      
-      {/* Animated Progress Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/5 to-transparent 
-        transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
     </GlassCard>
   )
 }
