@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { NexusShell } from './components/layout/NexusShell'
 import { useNexusStore } from './store/nexusStore'
-import { NexusProvider } from './context/NexusContext.jsx'
+import { NexusProvider } from './context/NexusContext'
 
-// Module Imports - ALL IN ONE PAGE
+// Module Imports
 import DashboardModule from './modules/DashboardModule'
 import AnalyticsModule from './modules/AnalyticsModule'
 import FinanceModule from './modules/FinanceModule'
@@ -36,6 +36,7 @@ function App() {
           case '8': e.preventDefault(); setCurrentModule('customers'); break;
           case '9': e.preventDefault(); setCurrentModule('marketing'); break;
           case '0': e.preventDefault(); setCurrentModule('settings'); break;
+          case 'h': e.preventDefault(); setCurrentModule('help'); break;
         }
       }
     }
@@ -44,21 +45,29 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // Module renderer - SINGLE PAGE
+  // Module renderer with props for navigation
   const renderModule = () => {
+    const moduleProps = {
+      onNavigate: setCurrentModule,
+      showToast: (message, type) => {
+        console.log('Toast:', message, type)
+        // Add your toast notification logic here
+      }
+    }
+
     switch(currentModule) {
-      case 'dashboard': return <DashboardModule />
-      case 'analytics': return <AnalyticsModule />
-      case 'finance': return <FinanceModule />
-      case 'operations': return <OperationsModule />
-      case 'team': return <TeamModule />
-      case 'projects': return <ProjectsModule />
-      case 'inventory': return <InventoryModule />
-      case 'customers': return <CustomersModule />
-      case 'marketing': return <MarketingModule />
-      case 'settings': return <SettingsModule />
-      case 'help': return <HelpModule />
-      default: return <DashboardModule />
+      case 'dashboard': return <DashboardModule {...moduleProps} />
+      case 'analytics': return <AnalyticsModule {...moduleProps} />
+      case 'finance': return <FinanceModule {...moduleProps} />
+      case 'operations': return <OperationsModule {...moduleProps} />
+      case 'team': return <TeamModule {...moduleProps} />
+      case 'projects': return <ProjectsModule {...moduleProps} />
+      case 'inventory': return <InventoryModule {...moduleProps} />
+      case 'customers': return <CustomersModule {...moduleProps} />
+      case 'marketing': return <MarketingModule {...moduleProps} />
+      case 'settings': return <SettingsModule {...moduleProps} />
+      case 'help': return <HelpModule {...moduleProps} />
+      default: return <DashboardModule {...moduleProps} />
     }
   }
 
