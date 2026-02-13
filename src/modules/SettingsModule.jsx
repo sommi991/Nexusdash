@@ -3,7 +3,7 @@ import {
   FiSettings, FiSave, FiGlobe, FiMail, FiShield,
   FiCreditCard, FiTruck, FiBell, FiLock, FiUser,
   FiDatabase, FiCloud, FiSmartphone, FiMonitor,
-  FiMoon, FiSun, FiLanguages, FiClock, FiDollarSign,
+  FiMoon, FiSun, FiGlobe as FiLanguage, FiClock, FiDollarSign,
   FiPercent, FiBox, FiUsers, FiCheckCircle, FiAlertCircle,
   FiRefreshCw, FiSliders, FiCode, FiKey, FiCpu
 } from 'react-icons/fi'
@@ -74,7 +74,7 @@ const SettingsModule = () => {
     setIsSaving(true)
     setTimeout(() => {
       setIsSaving(false)
-      // Show success notification
+      alert('Settings saved successfully!')
     }, 1500)
   }
 
@@ -180,6 +180,19 @@ const SettingsModule = () => {
                         focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
                     />
                   </div>
+                  <div>
+                    <label className="block text-sm text-white/60 mb-2">Support Email</label>
+                    <input
+                      type="email"
+                      value={settings.general.supportEmail}
+                      onChange={(e) => setSettings({
+                        ...settings,
+                        general: { ...settings.general, supportEmail: e.target.value }
+                      })}
+                      className="w-full h-11 px-4 rounded-xl bg-white/[0.02] border border-white/[0.03]
+                        focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-4">
                   <div>
@@ -195,10 +208,12 @@ const SettingsModule = () => {
                     >
                       <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
                       <option value="America/New_York">Eastern Time (US & Canada)</option>
-                      <option value="Europe/London">London</option>
-                      <option value="Europe/Paris">Paris</option>
-                      <option value="Asia/Tokyo">Tokyo</option>
-                      <option value="Australia/Sydney">Sydney</option>
+                      <option value="America/Chicago">Central Time (US & Canada)</option>
+                      <option value="America/Denver">Mountain Time (US & Canada)</option>
+                      <option value="Europe/London">London (GMT)</option>
+                      <option value="Europe/Paris">Paris (CET)</option>
+                      <option value="Asia/Tokyo">Tokyo (JST)</option>
+                      <option value="Australia/Sydney">Sydney (AEDT)</option>
                     </select>
                   </div>
                   <div>
@@ -213,11 +228,14 @@ const SettingsModule = () => {
                         focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
                     >
                       <option value="en">English</option>
-                      <option value="es">Spanish</option>
-                      <option value="fr">French</option>
-                      <option value="de">German</option>
-                      <option value="ja">Japanese</option>
-                      <option value="zh">Chinese</option>
+                      <option value="es">Español</option>
+                      <option value="fr">Français</option>
+                      <option value="de">Deutsch</option>
+                      <option value="it">Italiano</option>
+                      <option value="pt">Português</option>
+                      <option value="ja">日本語</option>
+                      <option value="ko">한국어</option>
+                      <option value="zh">中文</option>
                     </select>
                   </div>
                   <div>
@@ -236,6 +254,25 @@ const SettingsModule = () => {
                       <option value="GBP">GBP - British Pound</option>
                       <option value="JPY">JPY - Japanese Yen</option>
                       <option value="CAD">CAD - Canadian Dollar</option>
+                      <option value="AUD">AUD - Australian Dollar</option>
+                      <option value="CHF">CHF - Swiss Franc</option>
+                      <option value="CNY">CNY - Chinese Yuan</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-white/60 mb-2">Date Format</label>
+                    <select
+                      value={settings.general.dateFormat}
+                      onChange={(e) => setSettings({
+                        ...settings,
+                        general: { ...settings.general, dateFormat: e.target.value }
+                      })}
+                      className="w-full h-11 px-4 rounded-xl bg-white/[0.02] border border-white/[0.03]
+                        focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
+                    >
+                      <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                      <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                      <option value="YYYY-MM-DD">YYYY-MM-DD</option>
                     </select>
                   </div>
                 </div>
@@ -343,6 +380,8 @@ const SettingsModule = () => {
                     <option value="pink">Pink</option>
                     <option value="blue">Blue</option>
                     <option value="green">Green</option>
+                    <option value="amber">Amber</option>
+                    <option value="red">Red</option>
                   </select>
                 </div>
 
@@ -452,6 +491,8 @@ const SettingsModule = () => {
                     })}
                     className="w-full h-11 px-4 rounded-xl bg-white/[0.02] border border-white/[0.03]
                       focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
+                    min="1"
+                    max="120"
                   />
                 </div>
 
@@ -466,6 +507,8 @@ const SettingsModule = () => {
                     })}
                     className="w-full h-11 px-4 rounded-xl bg-white/[0.02] border border-white/[0.03]
                       focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
+                    min="0"
+                    max="365"
                   />
                 </div>
               </div>
@@ -482,6 +525,8 @@ const SettingsModule = () => {
                     })}
                     className="w-full h-11 px-4 rounded-xl bg-white/[0.02] border border-white/[0.03]
                       focus:border-indigo-500/30 focus:outline-none text-sm text-white/90"
+                    min="1"
+                    max="10"
                   />
                 </div>
 
@@ -553,7 +598,7 @@ const SettingsModule = () => {
                         {key === 'stripe' && <FiCreditCard className="w-5 h-5 text-indigo-400" />}
                         {key === 'paypal' && <FiDollarSign className="w-5 h-5 text-indigo-400" />}
                         {key === 'mailchimp' && <FiMail className="w-5 h-5 text-indigo-400" />}
-                        {key === 'slack' && <FiMessageCircle className="w-5 h-5 text-indigo-400" />}
+                        {key === 'slack' && <FiUsers className="w-5 h-5 text-indigo-400" />}
                         {key === 'aws' && <FiCloud className="w-5 h-5 text-indigo-400" />}
                       </div>
                       <span className="text-sm font-medium text-white/90 capitalize">{key}</span>
