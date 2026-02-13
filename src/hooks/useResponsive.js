@@ -1,14 +1,5 @@
 import { useState, useEffect } from 'react'
 
-const breakpoints = {
-  xs: 475,
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  '2xl': 1536
-}
-
 export const useResponsive = () => {
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -20,27 +11,40 @@ export const useResponsive = () => {
   const [isDesktop, setIsDesktop] = useState(false)
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
-      
-      setIsMobile(window.innerWidth < breakpoints.md)
-      setIsTablet(window.innerWidth >= breakpoints.md && window.innerWidth < breakpoints.lg)
-      setIsDesktop(window.innerWidth >= breakpoints.lg)
+    // Initial check
+    const checkSize = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      setIsTablet(width >= 768 && width < 1024)
+      setIsDesktop(width >= 1024)
     }
 
-    handleResize()
+    // Debounced resize handler for performance
+    let timeoutId
+    const handleResize = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        })
+        checkSize()
+      }, 150) // Debounce for better performance
+    }
+
+    checkSize()
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return {
-    ...windowSize,
+    width: windowSize.width,
+    height: windowSize.height,
     isMobile,
     isTablet,
-    isDesktop,
-    breakpoints
+    isDesktop
   }
 }
