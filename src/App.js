@@ -68,9 +68,10 @@ function App() {
         setShowCommandPalette(true)
         addNotification({
           type: 'info',
-          title: 'Command Palette',
+          title: '✨ Command Palette',
           message: 'Type a command to navigate',
-          duration: 2000
+          duration: 2000,
+          icon: '⌨️'
         })
       }
 
@@ -78,7 +79,14 @@ function App() {
       if ((e.metaKey || e.ctrlKey) && e.key === ',') {
         e.preventDefault()
         setCurrentModule('settings')
-        toast.success('Opening settings...', { icon: '⚙️' })
+        toast.success('Opening settings...', { 
+          icon: '⚙️',
+          style: {
+            background: '#0a0a1f',
+            color: '#fff',
+            border: '1px solid rgba(99,102,241,0.2)'
+          }
+        })
       }
 
       // Command/Ctrl + Shift + D - Toggle dark mode
@@ -86,8 +94,12 @@ function App() {
         e.preventDefault()
         const newTheme = theme === 'dark' ? 'light' : 'dark'
         document.documentElement.classList.toggle('light')
-        toast.success(`${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`, {
-          icon: newTheme === 'dark' ? '🌙' : '☀️'
+        toast.success(`${newTheme === 'dark' ? '🌙' : '☀️'} ${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`, {
+          style: {
+            background: '#0a0a1f',
+            color: '#fff',
+            border: '1px solid rgba(99,102,241,0.2)'
+          }
         })
       }
 
@@ -105,7 +117,15 @@ function App() {
         const index = parseInt(e.key) - 1
         if (modules[index]) {
           setCurrentModule(modules[index])
-          toast.success(`Switched to ${modules[index]}`, { icon: '🔄', duration: 1500 })
+          toast.success(`Switched to ${modules[index].charAt(0).toUpperCase() + modules[index].slice(1)}`, { 
+            icon: '🔄',
+            duration: 1500,
+            style: {
+              background: '#0a0a1f',
+              color: '#fff',
+              border: '1px solid rgba(99,102,241,0.2)'
+            }
+          })
           
           // Haptic feedback on supported devices
           if (navigator.vibrate) navigator.vibrate(10)
@@ -116,13 +136,13 @@ function App() {
       if (e.ctrlKey && e.key === 'h') {
         e.preventDefault()
         setCurrentModule('dashboard')
-        toast.success('Returning to dashboard', { icon: '🏠' })
-      }
-
-      // Ctrl + R - Refresh data (with haptic)
-      if (e.ctrlKey && e.key === 'r') {
-        e.preventDefault()
-        window.location.reload()
+        toast.success('🏠 Returning to dashboard', {
+          style: {
+            background: '#0a0a1f',
+            color: '#fff',
+            border: '1px solid rgba(99,102,241,0.2)'
+          }
+        })
       }
 
       // Ctrl + ? - Show help
@@ -130,14 +150,24 @@ function App() {
         e.preventDefault()
         toast.success(
           <div className="space-y-2">
-            <p className="font-bold">Keyboard Shortcuts:</p>
-            <p>⌘K - Command Palette</p>
-            <p>⌘, - Settings</p>
-            <p>⌘1-9 - Switch modules</p>
-            <p>⌘H - Go home</p>
-            <p>⌘⇧D - Toggle theme</p>
+            <p className="font-bold text-indigo-400">⌨️ Keyboard Shortcuts</p>
+            <p className="text-white/80">⌘K - Command Palette</p>
+            <p className="text-white/80">⌘, - Settings</p>
+            <p className="text-white/80">⌘1-9 - Switch modules</p>
+            <p className="text-white/80">⌘H - Go home</p>
+            <p className="text-white/80">⌘⇧D - Toggle theme</p>
+            <p className="text-white/80">⌘? - Show this help</p>
           </div>,
-          { duration: 5000, icon: '⌨️' }
+          { 
+            duration: 5000, 
+            icon: '⌨️',
+            style: {
+              background: '#0a0a1f',
+              color: '#fff',
+              border: '1px solid rgba(99,102,241,0.3)',
+              maxWidth: '300px'
+            }
+          }
         )
       }
     }
@@ -171,7 +201,13 @@ function App() {
             const currentIndex = modules.indexOf(currentModule)
             if (currentIndex > 0) {
               setCurrentModule(modules[currentIndex - 1])
-              toast.success('Previous module', { icon: '👈' })
+              toast.success('👈 Previous module', {
+                style: {
+                  background: '#0a0a1f',
+                  color: '#fff',
+                  border: '1px solid rgba(99,102,241,0.2)'
+                }
+              })
               if (navigator.vibrate) navigator.vibrate(20)
             }
           } else {
@@ -181,7 +217,13 @@ function App() {
             const currentIndex = modules.indexOf(currentModule)
             if (currentIndex < modules.length - 1) {
               setCurrentModule(modules[currentIndex + 1])
-              toast.success('Next module', { icon: '👉' })
+              toast.success('👉 Next module', {
+                style: {
+                  background: '#0a0a1f',
+                  color: '#fff',
+                  border: '1px solid rgba(99,102,241,0.2)'
+                }
+              })
               if (navigator.vibrate) navigator.vibrate(20)
             }
           }
@@ -189,7 +231,13 @@ function App() {
           // Vertical swipe
           if (deltaY > 0) {
             // Swipe down - refresh
-            toast.success('Pull to refresh', { icon: '🔄' })
+            toast.success('🔄 Pull to refresh', {
+              style: {
+                background: '#0a0a1f',
+                color: '#fff',
+                border: '1px solid rgba(99,102,241,0.2)'
+              }
+            })
             if (navigator.vibrate) navigator.vibrate([30, 50, 30])
           } else {
             // Swipe up - open command palette
@@ -204,7 +252,13 @@ function App() {
         const now = Date.now()
         if (window.lastTap && (now - window.lastTap) < 300) {
           // Double tap detected
-          toast.success('Double tap - quick actions', { icon: '👆👆' })
+          toast.success('👆👆 Double tap - quick actions', {
+            style: {
+              background: '#0a0a1f',
+              color: '#fff',
+              border: '1px solid rgba(99,102,241,0.2)'
+            }
+          })
           if (navigator.vibrate) navigator.vibrate([20, 20, 20])
           window.lastTap = null
         } else {
@@ -222,7 +276,7 @@ function App() {
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchend', handleTouchEnd)
     }
-  }, [currentModule])
+  }, [currentModule, theme])
 
   // ============ MODULE RENDERER WITH TRANSITIONS ============
   const renderModule = () => {
@@ -248,7 +302,13 @@ function App() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -20 }}
-        transition={{ duration: 0.3, type: 'spring', stiffness: 300, damping: 30 }}
+        transition={{ 
+          duration: 0.3, 
+          type: 'spring', 
+          stiffness: 300, 
+          damping: 30 
+        }}
+        className="h-full w-full"
       >
         <Component />
       </motion.div>
@@ -258,41 +318,55 @@ function App() {
   return (
     <NexusProvider>
       <GestureProvider>
-        <div className={`nexus-app ${theme} min-h-screen bg-gradient-to-br from-[#0a0a1a] to-[#050510]`}>
-          <NexusShell>
-            {/* Command Palette */}
-            <AnimatePresence>
-              {showCommandPalette && (
-                <CommandPalette onClose={() => setShowCommandPalette(false)} />
-              )}
-            </AnimatePresence>
+        <div className={`nexus-app ${theme} h-full w-full flex flex-col bg-[#030014]`}>
+          {/* Cosmic Background Effects */}
+          <div className="fixed inset-0 pointer-events-none">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(139,92,246,0.1),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(236,72,153,0.05),transparent_50%)]" />
+            <div className="absolute inset-0" style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0)',
+              backgroundSize: '40px 40px'
+            }} />
+          </div>
 
-            {/* Tour Guide */}
-            <AnimatePresence>
-              {showTour && (
-                <TourGuide onClose={() => setShowTour(false)} />
-              )}
-            </AnimatePresence>
-
-            {/* Main Content with Suspense */}
-            <Suspense fallback={
-              <div className="flex items-center justify-center min-h-[60vh]">
-                <div className="text-center space-y-4">
-                  <LoadingSpinner size="xl" text="Loading legendary experience..." />
-                  <p className="text-xs text-white/20 animate-pulse">
-                    Preparing your dashboard with magic ✨
-                  </p>
-                </div>
-              </div>
-            }>
-              <AnimatePresence mode="wait">
-                {renderModule()}
+          {/* Main Content */}
+          <div className="relative flex-1 h-full w-full overflow-hidden">
+            <NexusShell>
+              {/* Command Palette */}
+              <AnimatePresence>
+                {showCommandPalette && (
+                  <CommandPalette onClose={() => setShowCommandPalette(false)} />
+                )}
               </AnimatePresence>
-            </Suspense>
 
-            {/* Floating Action Button for mobile */}
-            <FloatingActionButton />
-          </NexusShell>
+              {/* Tour Guide */}
+              <AnimatePresence>
+                {showTour && (
+                  <TourGuide onClose={() => setShowTour(false)} />
+                )}
+              </AnimatePresence>
+
+              {/* Main Content with Suspense */}
+              <Suspense fallback={
+                <div className="flex items-center justify-center min-h-[60vh]">
+                  <div className="text-center space-y-4">
+                    <LoadingSpinner size="xl" text="Loading legendary experience..." />
+                    <p className="text-xs text-white/20 animate-pulse-soft">
+                      Preparing your cosmic dashboard ✨
+                    </p>
+                  </div>
+                </div>
+              }>
+                <AnimatePresence mode="wait">
+                  {renderModule()}
+                </AnimatePresence>
+              </Suspense>
+            </NexusShell>
+          </div>
+
+          {/* Floating Action Button for mobile */}
+          <FloatingActionButton />
         </div>
       </GestureProvider>
     </NexusProvider>
@@ -301,8 +375,17 @@ function App() {
 
 // ============ FLOATING ACTION BUTTON ============
 const FloatingActionButton = () => {
-  const { addNotification } = useNexusStore()
+  const { addNotification, setCurrentModule } = useNexusStore()
   const [isOpen, setIsOpen] = useState(false)
+
+  const modules = [
+    { icon: '📊', label: 'Dashboard', action: 'dashboard', color: 'from-indigo-500 to-purple-500' },
+    { icon: '📈', label: 'Analytics', action: 'analytics', color: 'from-purple-500 to-pink-500' },
+    { icon: '💰', label: 'Finance', action: 'finance', color: 'from-emerald-500 to-teal-500' },
+    { icon: '👥', label: 'Team', action: 'team', color: 'from-blue-500 to-indigo-500' },
+    { icon: '📦', label: 'Projects', action: 'projects', color: 'from-amber-500 to-orange-500' },
+    { icon: '⚙️', label: 'Settings', action: 'settings', color: 'from-rose-500 to-red-500' },
+  ]
 
   return (
     <div className="fixed bottom-6 right-6 z-50 lg:hidden">
@@ -312,27 +395,35 @@ const FloatingActionButton = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="absolute bottom-20 right-0 space-y-3"
+            className="absolute bottom-20 right-0 space-y-3 min-w-[180px]"
           >
-            {[
-              { icon: '📊', label: 'Dashboard', action: 'dashboard' },
-              { icon: '📈', label: 'Analytics', action: 'analytics' },
-              { icon: '💰', label: 'Finance', action: 'finance' },
-              { icon: '⚙️', label: 'Settings', action: 'settings' },
-            ].map((item) => (
+            {modules.map((item, index) => (
               <motion.button
                 key={item.label}
-                whileHover={{ scale: 1.1, x: -10 }}
-                whileTap={{ scale: 0.9 }}
-                className="flex items-center space-x-3 px-4 py-3 glass-card rounded-xl 
-                  bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ scale: 1.05, x: -10 }}
+                whileTap={{ scale: 0.95 }}
+                className={`flex items-center space-x-3 w-full px-4 py-3 rounded-xl
+                  bg-gradient-to-r ${item.color} shadow-glow-lg
+                  border border-white/20 backdrop-blur-xl`}
                 onClick={() => {
-                  // Navigate to module
+                  setCurrentModule(item.action)
                   if (navigator.vibrate) navigator.vibrate(10)
                   setIsOpen(false)
+                  toast.success(`Opening ${item.label}`, {
+                    icon: item.icon,
+                    style: {
+                      background: '#0a0a1f',
+                      color: '#fff',
+                      border: '1px solid rgba(99,102,241,0.2)'
+                    }
+                  })
                 }}
               >
-                <span className="text-2xl">{item.icon}</span>
+                <span className="text-2xl filter drop-shadow-glow">{item.icon}</span>
                 <span className="text-white text-sm font-medium">{item.label}</span>
               </motion.button>
             ))}
@@ -346,19 +437,37 @@ const FloatingActionButton = () => {
         animate={{
           rotate: isOpen ? 45 : 0,
           boxShadow: [
-            '0 0 0 0 rgba(139, 92, 246, 0.7)',
-            '0 0 0 20px rgba(139, 92, 246, 0)',
+            '0 0 0 0 rgba(99,102,241,0.7)',
+            '0 0 0 15px rgba(99,102,241,0.3)',
+            '0 0 0 30px rgba(99,102,241,0)',
           ]
         }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="w-14 h-14 bg-gradient-to-r from-indigo-600 to-purple-600 
-          rounded-full shadow-2xl flex items-center justify-center"
+        transition={{ 
+          repeat: Infinity, 
+          duration: 2,
+          boxShadow: {
+            repeat: Infinity,
+            duration: 2,
+            ease: "easeOut"
+          }
+        }}
+        className="w-14 h-14 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+          rounded-full shadow-2xl flex items-center justify-center relative
+          before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-r 
+          before:from-indigo-400 before:via-purple-400 before:to-pink-400 before:opacity-0
+          before:transition-opacity before:duration-300 hover:before:opacity-50
+          before:blur-xl"
         onClick={() => {
           setIsOpen(!isOpen)
           if (navigator.vibrate) navigator.vibrate(15)
         }}
       >
-        <span className="text-3xl text-white">⚡</span>
+        <motion.span 
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          className="text-3xl text-white relative z-10"
+        >
+          ⚡
+        </motion.span>
       </motion.button>
     </div>
   )
